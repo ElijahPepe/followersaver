@@ -7,7 +7,6 @@ def main():
 
 	with open(source_file, "r") as file:
 		f = file.read()
-		print(f)
 		follows = json.loads(f)
 
 	for follow in follows:
@@ -15,6 +14,8 @@ def main():
 			user = sntwitter.TwitterProfileScraper(follow["following"]["accountID"], True)
 			username = user._get_entity().username
 			follow["following"] |= { "username": username }
+			display_name = user._get_entity().displayname
+			follow["following"] |= { "displayName": display_name }
 		except:
 			pass
 
